@@ -25,7 +25,17 @@ export default function Authenticated({ user, header, children }) {
                                     Dashboard
                                 </NavLink>
                             </div>
+                            
                         </div>
+
+                        {/* <div className="flex items-center">
+                            <Link className='px-10' to={`/offices`}>
+                                Offices
+                            </Link>
+                            <Link className='px-10' to={`/meetingroom`}>
+                                Meeting Room
+                            </Link>
+                        </div> */}
 
                         <div className="hidden sm:flex sm:items-center sm:ms-6">
                             <div className="ms-3 relative">
@@ -113,11 +123,19 @@ export default function Authenticated({ user, header, children }) {
                 </div>
             </nav>
 
-            {header && (
-                <header className="bg-white shadow">
-                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">{header}</div>
+            {/* {header && (
+                <header className="bg-white shadow flex justify-around">
+                    <div className="py-6">{header}</div>
+                    <div className="flex items-center">
+                        <Link className='px-10' to={`/offices`}>
+                            Offices
+                        </Link>
+                        <Link className='px-10' to={`/meetingroom`}>
+                            Meeting Room
+                        </Link>
+                    </div>
                 </header>
-            )}
+            )} */}
 
             <main>{children}</main>
         </div>

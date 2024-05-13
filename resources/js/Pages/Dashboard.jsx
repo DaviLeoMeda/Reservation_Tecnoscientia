@@ -1,6 +1,12 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { useEffect, useState } from 'react';
 import { Head } from '@inertiajs/react';
+import { Link, Route, Routes } from 'react-router-dom';
+import OfficeReservation from '../Pages/OfficeReservation';
+import OfficesTable from '../Pages/OfficesTable';
+import MeetingRoom from '../Pages/MeetingRoom';
+import { Desk } from '../Pages/Desk';
+
 
 export default function Dashboard({ auth }) {
 
@@ -28,47 +34,50 @@ export default function Dashboard({ auth }) {
 			user={auth.user}
 			header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>}
 		>
+
+			<nav className="py-6 bg-white shadow flex justify-around">
+				<div>
+					<Link className='px-10' to="/dashboard">
+						Dashboard
+					</Link>
+				</div>
+				<div className="flex items-center">
+					<Link className='px-10' to="/offices">
+                        Offices
+                    </Link>
+                    <Link className='px-10' to="/meetingroom">
+                        Meeting Room
+                    </Link>
+				</div>
+			</nav>
 			<Head title="Dashboard" />
 
 			<div className="py-12">
 				<div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
 					<div className="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-10">
 						<div className="p-6 text-gray-900">You're logged in!</div>
-
 					</div>
 
-					<ul role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-1 lg:grid-cols-2">
-    				  {offices.map((office) => (
-    				    <li key={office.id} className="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow">
-    				      	<a href='#' className="flex w-full items-center justify-between space-x-6 p-6">
-    				      	  	<div className="flex-1 truncate">
-    				      	  	  <div className="flex items-center space-x-3">
-    				      	  	    <h3 className="truncate text-sm font-medium text-gray-900">{office.name}</h3>
-    				      	  	  </div>
-    				      	  	</div>
-								<div>
-									<span>Reservations ---&gt; </span>
-								</div> 
-    				      	</a>
-    				    </li>
-    				  ))}
-    				</ul>
-					<div className="mt-6 flex justify-center">
-						<ul role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-1 lg:grid-cols-1 w-1/2">
-    					    <li className="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow">
-    					      	<a href='#' className="flex items-center justify-between space-x-6 p-6">
-    					      	  	<div className="flex-1 truncate">
-    					      	  	  <div className="flex items-center space-x-3">
-    					      	  	    <h3 className="truncate text-sm font-medium text-gray-900">Meeting Room</h3>
-    					      	  	  </div>
-    					      	  	</div> 
-									<div>
-									  	<span>Reservations ---&gt; </span>
-									</div>
-    					      	</a>
-    					    </li>
-    					</ul>
+
+					<div role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-1 lg:grid-cols-1">
+						<Routes>
+							<Route path="/" element={<Dashboard />} />
+							<Route path="/offices">
+								<Route index element={<OfficesTable />} />
+								<Route path="/offices/:officeId" element={<OfficeReservation />} />
+								<Route path="/offices/:officeId/officeReservation" element={<OfficeReservation />} />
+								<Route path="/offices/:officeId/:formattedDate" element={<Desk />} />
+								<Route path="/offices/:officeId/:formattedDate/desk" element={<Desk />} />
+							</Route>
+							<Route path="/meetingroom" element={<MeetingRoom />} />
+      						  {/* {offices.map((office) => (
+      						    <Route key={office.id} path={`/offices/${office.id}`} element={<OfficeReservation />} />
+      						  ))} */}
+						</Routes>
 					</div>
+
+					
+					
 				</div>
 			</div>
 		</AuthenticatedLayout>
