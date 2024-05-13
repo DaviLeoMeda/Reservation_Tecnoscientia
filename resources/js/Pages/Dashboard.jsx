@@ -1,11 +1,12 @@
+import NavigationBar from '@/Components/NavigationBar';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { useEffect, useState } from 'react';
 import { Head } from '@inertiajs/react';
-import { Link, Route, Routes } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { Desk } from '../Pages/Desk';
+import MeetingRoom from '../Pages/MeetingRoom';
 import OfficeReservation from '../Pages/OfficeReservation';
 import OfficesTable from '../Pages/OfficesTable';
-import MeetingRoom from '../Pages/MeetingRoom';
-import { Desk } from '../Pages/Desk';
 
 
 export default function Dashboard({ auth }) {
@@ -34,22 +35,7 @@ export default function Dashboard({ auth }) {
 			user={auth.user}
 			header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>}
 		>
-
-			<nav className="py-6 bg-white shadow flex justify-around">
-				<div>
-					<Link className='px-10' to="/dashboard">
-						Dashboard
-					</Link>
-				</div>
-				<div className="flex items-center">
-					<Link className='px-10' to="/offices">
-                        Offices
-                    </Link>
-                    <Link className='px-10' to="/meetingroom">
-                        Meeting Room
-                    </Link>
-				</div>
-			</nav>
+			<NavigationBar />
 			<Head title="Dashboard" />
 
 			<div className="py-12">
