@@ -52,13 +52,17 @@ export default function OfficeReservation()
                 onChange={handleDateChange}
                 inline={true}
                 showWeek
+                style={{ width: '100%', fontSize: '16px' }}
               />
             </div>
 
           )}
-          <div className="mt-7 p-3 bg-blue-700 rounded-full border-double border-4 border-x-white">
-            <Link to={`/offices/${numberOffice}/${formattedDate}`} className="text-white">Voglio prenotare per la data {formattedDate} per l'ufficio {numberOffice}</Link>
-          </div>
+          <Link to={`/offices/${numberOffice}/${formattedDate}`} className="text-white flex justify-center">
+            Prenota
+            <div className="mt-7 p-3 w-1/3 bg-blue-700 rounded-full border-double border-4 border-x-white text-center ">
+              <span>Prenota</span>
+            </div>
+          </Link>
         </div>
         
       </div>

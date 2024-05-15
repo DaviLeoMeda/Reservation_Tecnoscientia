@@ -45,7 +45,6 @@ export default function OfficesTable()
       	    	        <span>Reservations ---&gt; </span>
       	    	      </div> 
       	    	    </Link>
-					<Outlet />
       	    	  </li>
       	    	))}
     	    </ul>

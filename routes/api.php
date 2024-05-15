@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use Inertia\Inertia;
 use App\Http\Controllers\OfficeController;
+use App\Http\Controllers\DeskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,7 @@ use App\Http\Controllers\OfficeController;
 
 //GET
 Route::get('/getOffice', [OfficeController::class, 'getOffice']);
+Route::get('/getDesk', [DeskController::class, 'getDesk']);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
