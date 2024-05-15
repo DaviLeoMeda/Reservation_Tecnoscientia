@@ -9,8 +9,7 @@ class Office extends Model
 {
     use HasFactory;
 
-
-    public function office_reservations()
+    public function desks()
     {
         return $this->hasMany(Desk::class);
     }
