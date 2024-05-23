@@ -10,6 +10,7 @@ export default function OfficeReservation({ userId }) {
   const [date, setDate] = useState(null);
   const [formattedDate, setFormattedDate] = useState('');
 
+
   const { officeId } = useParams();
   let numberOffice = officeId;
 
@@ -22,6 +23,9 @@ export default function OfficeReservation({ userId }) {
     const formattedDateValue = format(e.value, 'yyyy-MM-dd');
     setFormattedDate(formattedDateValue);
   };
+
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
 
   const createReservation = async () => {
     try {
@@ -48,6 +52,8 @@ export default function OfficeReservation({ userId }) {
     }
   };
 
+
+
   return (
     <div className="flex justify-center">
 
@@ -58,6 +64,7 @@ export default function OfficeReservation({ userId }) {
             value={date}
             onChange={handleDateChange}
             inline={true}
+            minDate={tomorrow}
             showWeek
             style={{ width: '100%', fontSize: '16px' }}
           />
