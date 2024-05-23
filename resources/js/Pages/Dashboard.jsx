@@ -29,8 +29,8 @@ export default function Dashboard({ auth }) {
 							<Route path="/" element={<Dashboard />} />
 							<Route path="/offices">
 								<Route index element={<OfficesTable />} />
-								<Route path=":officeId" element={<OfficeReservation userId={auth.user.id}  />} />
-								<Route path=":officeId/:formattedDate" element={<Desk/>} />
+								<Route path=":officeId" element={<OfficeReservation />} />
+								<Route path=":officeId/:formattedDate" element={<Desk userId={auth.user.id} />} />
 							</Route>
 							<Route path="/meetingroom" element={<MeetingRoom />} />
       						  

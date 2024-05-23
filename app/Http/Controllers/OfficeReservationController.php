@@ -34,10 +34,13 @@ class OfficeReservationController extends Controller
 
 
         $existingReservation = OfficeReservation::where('reservation_day', $request->reservation_day)
-                                             ->where('user_id', $request->user_id)
-                                             ->first();
+            ->where('desk_id', $request->desk_id)
+            ->where('user_id', $request->user_id)
+            ->first();
 
-        if ($existingReservation) {
+            $existingReservation = 
+
+            
             
             return response()->json($existingReservation, 200);
         } else {
