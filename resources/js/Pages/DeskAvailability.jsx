@@ -30,8 +30,8 @@ export function DeskAvailability({ userId }) {
                 <li key={desk.id} className="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow">
                     <div className="flex-1 truncate">
                         <div className="space-x-3 text-center">
-                            <h3 className="truncate text-sm font-medium text-gray-900 py-5 text-center mx-auto ">Desk {desk.name}</h3>
-                            <div className="my-3 flex justify-around">
+                            <h2 className="truncate text-gray-900 py-5 text-center mx-auto ">Desk {desk.name}</h2>
+                            <div className="my-3 flex justify-evenly">
                                 <DeskReservation currentUser={userId} deskState={desk.am} amOrPm='morning' />
                                 <DeskReservation currentUser={userId} deskState={desk.pm} amOrPm='afternoon' />
                             </div>
