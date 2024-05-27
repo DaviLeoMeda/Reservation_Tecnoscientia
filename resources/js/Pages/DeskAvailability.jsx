@@ -1,8 +1,9 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
+import { DeskReservation } from "@/Components/DeskReservation";
 
 
-export function Desk({ userId }) {
+export function DeskAvailability({ userId }) {
     const { officeId, formattedDate } = useParams();
     const [desks, setDesks] = useState([]);
 
@@ -14,7 +15,7 @@ export function Desk({ userId }) {
 
     const getDesk = async () => {
         try {
-            const response = await fetch(`http://localhost:8000/api/offices/${officeId}/desks`);
+            const response = await fetch(`http://localhost:8000/api/offices/${officeId}/desk-availability/${formattedDate}`);
             const data = await response.json();
             setDesks(data);
             console.log(desks)
@@ -22,10 +23,6 @@ export function Desk({ userId }) {
             console.error('Errore durante il recupero degli uffici:', error);
         }
     };
-
-    
-
-
 
     return (
         <ul role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-1 lg:grid-cols-2">
@@ -35,8 +32,8 @@ export function Desk({ userId }) {
                         <div className="space-x-3 text-center">
                             <h3 className="truncate text-sm font-medium text-gray-900 py-5 text-center mx-auto ">Desk {desk.name}</h3>
                             <div className="my-3 flex justify-around">
-                                <button className="bg-emerald-300 p-2 rounded-xl">Morning Reservation</button>
-                                <button className="bg-emerald-300 p-2 rounded-xl">Afternoon Reservation</button>
+                                <DeskReservation currentUser={userId} deskState={desk.am} amOrPm='morning' />
+                                <DeskReservation currentUser={userId} deskState={desk.pm} amOrPm='afternoon' />
                             </div>
                         </div>
                     </div>
