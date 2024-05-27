@@ -4,7 +4,7 @@ import { DeskReservation } from "@/Components/DeskReservation";
 import { getDeskAvailability } from "@/Services/desk-service";
 
 
-export function DeskAvailability({ userId }) {
+export function DeskSlotSelection({ userId }) {
     const { officeId, formattedDate } = useParams();
     const [desks, setDesks] = useState([]);
 
@@ -18,7 +18,6 @@ export function DeskAvailability({ userId }) {
         try {
             const data = await getDeskAvailability(officeId, formattedDate);
             setDesks(data);
-            console.log(desks)
         } catch (error) {
             console.error('Errore durante il recupero degli uffici:', error);
         }

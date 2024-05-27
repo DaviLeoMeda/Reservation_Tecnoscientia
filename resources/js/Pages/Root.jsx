@@ -2,7 +2,7 @@ import NavigationBar from '@/Components/NavigationBar';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import { Route, Routes } from 'react-router-dom';
-import { DeskAvailability } from './DeskAvailability';
+import { DeskSlotSelection } from './DeskSlotSelection';
 import MeetingRoom from './MeetingRoom';
 import DateSelection from './DateSelection';
 import OfficeSelection from './OfficeSelection';
@@ -26,7 +26,7 @@ export default function Root({ auth }) {
 							<Route path="/offices/*">
 								<Route index element={<OfficeSelection />} />
 								<Route path=":officeId/dates" element={<DateSelection userId={auth.user.id}  />} />
-								<Route path=":officeId/dates/:formattedDate/desks" element={<DeskAvailability userId={auth.user.id}/>} />
+								<Route path=":officeId/dates/:formattedDate/desks" element={<DeskSlotSelection userId={auth.user.id}/>} />
 							</Route>
 							<Route path="/meetingroom" element={<MeetingRoom />} />
       						  
