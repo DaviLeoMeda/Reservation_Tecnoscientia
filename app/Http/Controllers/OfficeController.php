@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 
 class OfficeController extends Controller
 {
-    public function getOffice(Request $request)
+    public function listOffices(Request $request)
     {
         try {
             $offices = Office::all();

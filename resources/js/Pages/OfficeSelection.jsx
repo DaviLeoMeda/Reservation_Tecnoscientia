@@ -6,10 +6,10 @@ export default function OfficeSelection() {
 	const [offices, setOffices] = useState([]);
 
 	useEffect(() => {
-		getOffice();
+		loadOffices();
 	}, []);
 
-	const getOffice = async () => {
+	const loadOffices = async () => {
 		try {
 			const data = await getOffices();
 			setOffices(data);
