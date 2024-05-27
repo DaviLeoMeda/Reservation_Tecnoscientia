@@ -10,11 +10,11 @@ export function DeskAvailability({ userId }) {
 
 
     useEffect(() => {
-        getDesk();
+        loadDeskAvailability();
     }, []);
 
 
-    const getDesk = async () => {
+    const loadDeskAvailability = async () => {
         try {
             const data = await getDeskAvailability(officeId, formattedDate);
             setDesks(data);
