@@ -2,8 +2,6 @@ export function DeskReservation({ currentUser, deskState, amOrPm }) {
     let clazz = '';
     let message = '';
 
-    console.log("currentUser and state", currentUser, deskState);
-
     if (deskState === 'free') {
         clazz = 'bg-lime-600 text-lime-200 border-lime-200';
         message = 'Reserve for ' + amOrPm;
