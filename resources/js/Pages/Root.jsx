@@ -4,7 +4,7 @@ import { Head } from '@inertiajs/react';
 import { Route, Routes } from 'react-router-dom';
 import { DeskAvailability } from './DeskAvailability';
 import MeetingRoom from './MeetingRoom';
-import OfficeReservation from './OfficeReservation';
+import DateSelection from './DateSelection';
 import OfficeSelection from './OfficeSelection';
 import { Landing } from './Landing';
 
@@ -25,7 +25,7 @@ export default function Root({ auth }) {
 							<Route path="/" element={<Landing />} />
 							<Route path="/offices/*">
 								<Route index element={<OfficeSelection />} />
-								<Route path=":officeId/dates" element={<OfficeReservation userId={auth.user.id}  />} />
+								<Route path=":officeId/dates" element={<DateSelection userId={auth.user.id}  />} />
 								<Route path=":officeId/dates/:formattedDate/desks" element={<DeskAvailability userId={auth.user.id}/>} />
 							</Route>
 							<Route path="/meetingroom" element={<MeetingRoom />} />
