@@ -33,8 +33,9 @@ class OfficeReservationController extends Controller
         ]);
 
 
-        $existingReservation = OfficeReservation::where('reservation_day', $request->reservation_day)
-                                             ->where('user_id', $request->user_id)
+        $existingReservation = OfficeReservation::where('reservation_day', $validated['date'])
+                                             ->where($timeField, 1)
+                                             ->where('desk_id', $validated['desk_id'])
                                              ->first();
 
         if ($existingReservation) {
