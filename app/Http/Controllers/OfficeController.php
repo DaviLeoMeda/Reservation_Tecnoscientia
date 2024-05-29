@@ -3,19 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Traits\Utils;
+use App\Models\Office;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Carbon\Carbon;
-use Exception;
-use App\Models\Office;
-
-
-
 
 class OfficeController extends Controller
 {
-    public function getOffice(Request $request)
+    public function listOffices(Request $request)
     {
         try {
             $offices = Office::all();
@@ -27,15 +21,4 @@ class OfficeController extends Controller
         }
     }
 
-    public function listDesks(Request $request, int $id)
-    {
-        try {
-            $desks = Office::find($id)->desks;
-
-            return response()->json($desks);
-        } catch (\Exception $e) {
-            // Gestisci l'eccezione qui
-            return response()->json(['error' => 'Errore durante il recupero delle scrivanie'], 500);
-        }
-    }
 };

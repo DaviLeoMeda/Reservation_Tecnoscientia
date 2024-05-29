@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\OfficeReservation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class OfficeReservationController extends Controller
 {
@@ -28,34 +30,48 @@ class OfficeReservationController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'reservation_day' => 'required|date',
+        Log::info("Requesting to create a new reservation");
+
+        $validated = $request->validate([
+            'date' => 'required|date',
+            'desk_id' =>'exists:desks,id',
+            'am_or_pm' => 'required|in:am,pm',
+            // TODO: questo è sbagliato, dovrebbe venire dall'autenticazione
+            'user_id' => 'required|exists:users,id'
         ]);
 
+        // TODO: validare che la data sia nel futuro (o forse anche oggi compreso?)
+        
+        $timeField = $validated['am_or_pm'] === 'am' ? 'morning_busy' : 'afternoon_busy';
 
-        $existingReservation = OfficeReservation::where('reservation_day', $request->reservation_day)
-            ->where('desk_id', $request->desk_id)
-            ->where('user_id', $request->user_id)
-            ->first();
+        DB::beginTransaction();
 
-            $existingReservation = 
+        $existingReservation = OfficeReservation::where('reservation_day', $validated['date'])
+                                             ->where($timeField, 1)
+                                             ->where('desk_id', $validated['desk_id'])
+                                             ->first();
 
-            
-            
-            return response()->json($existingReservation, 200);
-        } else {
-            
-            $reservation = new OfficeReservation();
-            $reservation->user_id = $request->user_id;
-            $reservation->desk_id = $request->desk_id;
-            $reservation->reservation_day = $request->reservation_day;
-            $reservation->morning_busy = $request->morning_busy;
-            $reservation->afternoon_busy = $request->afternoon_busy;
-            $reservation->save();
+        if ($existingReservation) {
+            abort(409, 'Desk already reserved');
+        } 
+        
+        $reservation = new OfficeReservation();
+        
+        // TODO questo è sbagliato, dovrebbe venire dall'autenticazione
+        $reservation->user_id = $validated['user_id']; 
+        // TODO dovrebbe essere come segue, ma Sanctum non è configurato
+        // $reservation->user_id = $request->user()->id;
 
-            return response()->json($reservation, 201);
-        }
+        $reservation->desk_id = $validated['desk_id'];
+        $reservation->reservation_day = $validated['date'];
+        $reservation->morning_busy = $validated['am_or_pm'] === 'am';
+        $reservation->afternoon_busy = $validated['am_or_pm'] === 'pm';
+        $reservation->save();
+        DB::commit();
 
+        Log::info("Reservation created with id $reservation->id");
+
+        return response()->json($reservation, 201);
     }
 
     /**

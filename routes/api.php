@@ -1,8 +1,7 @@
 <?php
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Application;
-use Inertia\Inertia;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\DeskController;
 use App\Http\Controllers\OfficeReservationController;
@@ -19,16 +18,13 @@ use App\Http\Controllers\OfficeReservationController;
 */
 
 
+Route::get('/offices', [OfficeController::class, 'listOffices']);
+Route::get('/offices/{id}/desk-availability/{date}', [DeskController::class, 'listDeskAvailability']);
 
-
-//GET
-Route::get('/getOffice', [OfficeController::class, 'getOffice']);
-Route::get('/offices/{id}/desks', [OfficeController::class, 'listDesks']);
-Route::get('/getDesk', [DeskController::class, 'getDesk']);
-Route::get('/getOccupation', [DeskController::class, 'getOccupation']);
-
-//POST
-Route::post('/postReservation', [OfficeReservationController::class, 'store'])->name('reservation.store');
+Route::post('/reservations', [OfficeReservationController::class, 'store'])
+    // TODO: sistemare configurazione di Sanctum e scommentare la riga seguente
+    // ->middleware('auth')
+    ->name('reservation.store');
 
 //PUT
 Route::put('/updateReservation', [OfficeReservationController::class, 'update']);

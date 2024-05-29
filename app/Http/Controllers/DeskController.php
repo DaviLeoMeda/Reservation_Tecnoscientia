@@ -1,39 +1,73 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\OfficeReservation;
-use App\Models\Desk;
-use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class DeskController extends Controller
 {
-    public function getDesk(Request $request)
+    private function loadDesksAndTheirReservations($officeId, $date)
     {
-        try {
-            $desks = Desk::all();
-
-            return response()->json($desks);
-        } catch (\Exception $e) {
-            // Gestisci l'eccezione qui
-            return response()->json(['error' => 'Errore durante il recupero degli uffici'], 500);
-        }
+        return DB::table('desks')
+            ->select('desks.id', 'desks.name', 'reservations.morning_busy', 'reservations.afternoon_busy', 'reservations.user_id')
+            ->leftJoin('office_reservations as reservations', function ($join) use ($date) {
+                $join->on('desks.id', '=', 'reservations.desk_id');
+                $join->on('reservations.reservation_day', '=', DB::raw("'$date'"));
+            })
+            ->where('office_id', $officeId)
+            ->get();
     }
 
-    public function getOccupation(Request $request)
+    private function createMapOfDesksWithTheirAvailability($desks) {
+        $deskMap = [];
+        foreach ($desks as $desk) {
+            if (!array_key_exists($desk->id, $deskMap)) {
+                $deskRecord = [];
+                $deskRecord['id'] = $desk->id;
+                $deskRecord['name'] = $desk->name;
+                $deskRecord['am'] = 'free';
+                $deskRecord['pm'] = 'free';
+
+                $deskMap[$desk->id] = $deskRecord;
+            }
+
+            if ($desk->morning_busy) {
+                $deskMap[$desk->id]['am'] = $desk->user_id;
+            } else if ($desk->afternoon_busy) {
+                $deskMap[$desk->id]['pm'] = $desk->user_id;
+            }
+        }
+
+        return $deskMap;
+    }
+
+    private function convertMapToArray($deskMap) {
+        $result = [];
+        foreach ($deskMap as $id => $deskRecord) {
+            $result[] = $deskRecord;
+        }
+
+        usort($result, function ($d1, $d2) {
+            return $d1['id'] - $d2['id'];
+        });
+
+        return $result;
+    }
+
+    public function listDeskAvailability(int $id, string $date)
     {
-        $request->validate([
-            'reservation_day' => 'required|date',
-        ]);
+        try {
+            $desks = $this->loadDesksAndTheirReservations($id, $date);
 
-        $reservationDay = $request->input('reservation_day');
+            $deskMap = $this->createMapOfDesksWithTheirAvailability($desks);
 
-        $occupations = OfficeReservation::where('reservation_day', $reservationDay)
-            ->where(function($query) {
-                $query->where('morning_busy', true)
-                      ->orWhere('afternoon_busy', true);
-            })
-            ->get(['desk_id', 'morning_busy', 'afternoon_busy']);
+            return $this->convertMapToArray($deskMap);
 
-        return response()->json($occupations);
+        } catch (\Exception $e) {
+            // Gestisci l'eccezione qui
+            Log::error($e);
+            return response()->json(['error' => 'Errore durante il recupero delle scrivanie'], 500);
+        }
     }
 }
