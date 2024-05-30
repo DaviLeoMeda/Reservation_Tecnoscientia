@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { DeskReservation } from "@/Components/DeskReservation";
-import { createReservation, getDeskAvailability } from "@/Services/desk-service";
+import { createReservation, deleteReservation, getDeskAvailability } from "@/Services/desk-service";
 
 import { ConfirmPopup } from 'primereact/confirmpopup';
 import { confirmPopup } from 'primereact/confirmpopup';
@@ -29,11 +29,11 @@ export function DeskSlotSelection({ userId }) {
         loadDeskAvailability();
     }, []);
 
-    const confirmReservationCreation = (target, deskName, amOrPm) => {
-        return new Promise((resolve, reject) => {
+    const promptForConfirmation = (target, message) => {
+        return new Promise((resolve) => {
             confirmPopup({
                 target: target,
-                message: `Are you sure you want to book '${deskName}' for ${amOrPm}?`,
+                message: message,
                 icon: 'pi pi-info-circle',
                 accept: () => {
                     resolve(true);
@@ -43,6 +43,15 @@ export function DeskSlotSelection({ userId }) {
                 }
             });
         });
+    }
+
+
+    const confirmReservationCreation = (target, deskName, amOrPm) => {
+        return promptForConfirmation(target, `Are you sure you want to reserve '${deskName}' for ${amOrPm}?`);
+    }
+
+    const confirmReservationDeletion = (target, deskName, amOrPm) => {
+        return promptForConfirmation(target, `Are you sure you want to delete reservation for '${deskName}' for ${amOrPm}?`);
     }
 
     const handleNewReservation = (deskId, deskName, amOrPm) => async (event) => {
@@ -68,13 +77,44 @@ export function DeskSlotSelection({ userId }) {
         setDesks((prevDesks) => {
             return prevDesks.map((desk) => {
                 if (desk.id === deskId) {
-                    return {...desk, [amOrPm]: userId};
+                    return { ...desk, [amOrPm]: { user: userId, reservation: newReservation.id } };
                 }
                 return desk;
             });
         });
 
         toast.current.show({ severity: 'success', summary: 'Success', detail: 'Reservation created' });
+    };
+
+    const handleDeleteReservation = (deskId, deskName, reservation, amOrPm) => async (event) => {
+        const confirmed = await confirmReservationDeletion(event.currentTarget, deskName, amOrPm);
+        if (!confirmed) {
+            toast.current.show({ severity: 'warn', summary: 'Cancelled', detail: 'Operation cancelled' });
+            return;
+        }
+
+        try {
+            const deleteResponse = await deleteReservation(reservation.reservation);
+            if (!deleteResponse) {
+                toast.current.show({ severity: 'error', summary: 'Error', detail: 'Reservation could not be deleted' });
+                return;
+            }
+        } catch (error) {
+            console.error('Errore durante la cancellazione della prenotazione:', error);
+            toast.current.show({ severity: 'error', summary: 'Error', detail: 'An error occurred: reservation not deleted' });
+            return;
+        }
+
+        setDesks((prevDesks) => {
+            return prevDesks.map((desk) => {
+                if (desk.id === deskId) {
+                    return { ...desk, [amOrPm]: [] };
+                }
+                return desk;
+            });
+        });
+
+        toast.current.show({ severity: 'success', summary: 'Success', detail: 'Reservation deleted' });
     };
 
     return (
@@ -96,12 +136,14 @@ export function DeskSlotSelection({ userId }) {
                                         deskState={desk.am}
                                         amOrPm='morning'
                                         onReserve={handleNewReservation(desk.id, desk.name, 'am')}
+                                        onDelete={handleDeleteReservation(desk.id, desk.name, desk.am, 'am')}
                                     />
                                     <DeskReservation
                                         currentUser={userId}
                                         deskState={desk.pm}
                                         amOrPm='afternoon'
                                         onReserve={handleNewReservation(desk.id, desk.name, 'pm')}
+                                        onDelete={handleDeleteReservation(desk.id, desk.name, desk.pm, 'pm')}
                                     />
                                 </div>
                             </div>
@@ -111,5 +153,4 @@ export function DeskSlotSelection({ userId }) {
             </section>
         </>
     );
-
 }
