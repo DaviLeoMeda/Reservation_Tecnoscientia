@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Desk;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -34,5 +35,10 @@ class DeskSeeder extends Seeder
             ['name' => '4', 'office_id' => '4'],
             ['name' => '5', 'office_id' => '4'],
         ];
+
+        foreach ($desks as $d) {
+            $desk = new Desk($d);
+            $desk->save();
+        }
     }
 }
