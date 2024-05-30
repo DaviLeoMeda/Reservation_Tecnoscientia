@@ -9,10 +9,7 @@ export default function NavigationBar() {
         </div>
         <div className="flex items-center">
             <Link className='px-10' to="/offices">
-                Offices
-            </Link>
-            <Link className='px-10' to="/meetingroom">
-                Meeting Room
+                Desks per day
             </Link>
         </div>
     </nav>
