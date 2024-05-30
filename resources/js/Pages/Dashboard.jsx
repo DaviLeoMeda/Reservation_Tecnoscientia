@@ -10,23 +10,7 @@ import { Desk } from '../Pages/Desk';
 
 export default function Dashboard({ auth }) {
 
-	const [offices, setOffices] = useState([]);
 
-	useEffect(() => {
-        getOffice();
-    }, []);
-
-	
-
-	const getOffice = async () => {
-        try {
-            const response = await fetch('http://localhost:8000/api/getOffice');
-            const data = await response.json();
-            setOffices(data);
-        } catch (error) {
-            console.error('Errore durante il recupero degli uffici:', error);
-        }
-    };
 
 	
 	return (
@@ -64,15 +48,11 @@ export default function Dashboard({ auth }) {
 							<Route path="/" element={<Dashboard />} />
 							<Route path="/offices">
 								<Route index element={<OfficesTable />} />
-								<Route path="/offices/:officeId" element={<OfficeReservation />} />
-								<Route path="/offices/:officeId/officeReservation" element={<OfficeReservation />} />
-								<Route path="/offices/:officeId/:formattedDate" element={<Desk />} />
-								<Route path="/offices/:officeId/:formattedDate/desk" element={<Desk />} />
+								<Route path=":officeId" element={<OfficeReservation />} />
+								<Route path=":officeId/:formattedDate" element={<Desk />} />
 							</Route>
 							<Route path="/meetingroom" element={<MeetingRoom />} />
-      						  {/* {offices.map((office) => (
-      						    <Route key={office.id} path={`/offices/${office.id}`} element={<OfficeReservation />} />
-      						  ))} */}
+      						  
 						</Routes>
 					</div>
 

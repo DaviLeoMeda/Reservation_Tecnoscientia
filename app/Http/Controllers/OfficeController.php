@@ -18,7 +18,7 @@ class OfficeController extends Controller
     public function getOffice(Request $request)
     {
         try {
-            $offices = Office::all(); // Recupera tutti gli uffici dal database
+            $offices = Office::all();
 
             return response()->json($offices);
         } catch (\Exception $e) {
