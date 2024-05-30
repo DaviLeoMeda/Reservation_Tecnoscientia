@@ -10,18 +10,18 @@ export function DeskSlotSelection({ userId }) {
 
 
     useEffect(() => {
+        const loadDeskAvailability = async () => {
+            try {
+                const data = await getDeskAvailability(officeId, formattedDate);
+                setDesks(data);
+            } catch (error) {
+                console.error('Errore durante il recupero degli uffici:', error);
+            }
+        };
+
         loadDeskAvailability();
     }, []);
 
-
-    const loadDeskAvailability = async () => {
-        try {
-            const data = await getDeskAvailability(officeId, formattedDate);
-            setDesks(data);
-        } catch (error) {
-            console.error('Errore durante il recupero degli uffici:', error);
-        }
-    };
 
     return (
         <>
