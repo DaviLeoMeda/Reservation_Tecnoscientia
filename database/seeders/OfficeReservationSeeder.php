@@ -21,11 +21,11 @@ class OfficeReservationSeeder extends Seeder
 
         foreach ($office_reservations as $elem) {
             $new_or = new OfficeReservation();
-            $new_or->user_id = $elem;
-            $new_or->desk_id = $elem;
-            $new_or->reservation_day = $elem;
-            $new_or->morning_busy = $elem;
-            $new_or->afternoon_busy = $elem;
+            $new_or->user_id = $elem['user_id'];
+            $new_or->desk_id = $elem['desk_id'];
+            $new_or->reservation_day = $elem['reservation_day'];
+            $new_or->morning_busy = $elem['morning_busy'];
+            $new_or->afternoon_busy = $elem['afternoon_busy'];
             $new_or->save();
         }
     }
