@@ -6,6 +6,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import SelectInput from '@/Components/SelectInput';
 import { Head, Link, useForm } from '@inertiajs/react';
+import { getOffices } from '@/Services/desk-service';
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -34,28 +35,9 @@ export default function Register() {
         getOffice();
     }, []);
 
-    // function getOffice() {
-    //     fetch('https://localhost:8000/web/getOffice',
-    //     {
-    //         method: "GET",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //     }
-    // )
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //         setRoleUser(data);
-    //     })
-    //     .catch((error) => {
-    //         console.error("There was an error! ", error);
-    //     });
-    // }
-
     const getOffice = async () => {
         try {
-            const response = await fetch('http://localhost:8000/api/getOffice');
-            const data = await response.json();
+            const data = await getOffices();
             setRoleUser(data);
         } catch (error) {
             console.error('Errore durante il recupero degli uffici:', error);
