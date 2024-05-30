@@ -61,7 +61,8 @@ export function DeskSlotSelection({ userId }) {
             }
         } catch (error) {
             console.error('Errore durante la creazione della prenotazione:', error);
-            toast.current.show({ severity: 'error', summary: 'Error', detail: 'Reservation not created' });
+            toast.current.show({ severity: 'error', summary: 'Error', detail: 'An error occurred: reservation not created' });
+            return;
         }
 
         setDesks((prevDesks) => {
