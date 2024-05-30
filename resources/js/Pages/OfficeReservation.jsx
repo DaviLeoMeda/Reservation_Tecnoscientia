@@ -35,30 +35,7 @@ export default function OfficeReservation( {userId} ) {
     setFormattedDate(formattedDateValue);
   };
 
-  const createReservation = async () => {
-    try {
-      const response = await fetch('http://localhost:8000/api/postReservation', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          user_id: userId,
-          desk_id: null,
-          reservation_day: formattedDate,
-          morning_busy: false,
-          afternoon_busy: false,
-        }),
-      });
-      if (response.ok) {
-        console.log('Prenotazione creata con successo!');
-      } else {
-        console.error('Errore durante la creazione della prenotazione:', response.statusText);
-      }
-    } catch (error) {
-      console.error('Errore durante la creazione della prenotazione:', error);
-    }
-  };
+  
 
   return (
     <div className="flex justify-center">
@@ -77,7 +54,7 @@ export default function OfficeReservation( {userId} ) {
           </div>
 
         )}
-        {formattedDate && <Link to={`/offices/${numberOffice}/${formattedDate}`} onClick={createReservation} className="text-white flex justify-center">
+        {formattedDate && <Link to={`/offices/${numberOffice}/${formattedDate}`} className="text-white flex justify-center">
           <div className="mt-7 p-3 bg-blue-700 rounded-full border-double border-4 border-x-white text-center ">
             <span>Prenota per <em>{formattedDate}</em></span>
           </div>

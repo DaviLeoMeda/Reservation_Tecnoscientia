@@ -25,9 +25,13 @@ use App\Http\Controllers\OfficeReservationController;
 Route::get('/getOffice', [OfficeController::class, 'getOffice']);
 Route::get('/offices/{id}/desks', [OfficeController::class, 'listDesks']);
 Route::get('/getDesk', [DeskController::class, 'getDesk']);
+Route::get('/getOccupation', [DeskController::class, 'getOccupation']);
 
 //POST
 Route::post('/postReservation', [OfficeReservationController::class, 'store'])->name('reservation.store');
+
+//PUT
+Route::put('/updateReservation', [OfficeReservationController::class, 'update']);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
