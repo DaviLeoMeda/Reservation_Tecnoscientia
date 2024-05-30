@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { DeskReservation } from "@/Components/DeskReservation";
+import { getDeskAvailability } from "@/Services/desk-service";
 
 
 export function DeskAvailability({ userId }) {
@@ -15,8 +16,7 @@ export function DeskAvailability({ userId }) {
 
     const getDesk = async () => {
         try {
-            const response = await fetch(`http://localhost:8000/api/offices/${officeId}/desk-availability/${formattedDate}`);
-            const data = await response.json();
+            const data = await getDeskAvailability(officeId, formattedDate);
             setDesks(data);
             console.log(desks)
         } catch (error) {
