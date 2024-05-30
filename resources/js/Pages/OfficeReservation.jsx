@@ -70,7 +70,7 @@ export default function OfficeReservation({ userId }) {
           />
         </div>
 
-        {formattedDate && <Link to={`/offices/${numberOffice}/${formattedDate}`} onClick={createReservation} className="text-white flex justify-center">
+        {formattedDate && <Link to={`/offices/${numberOffice}/dates/${formattedDate}/desks`} onClick={createReservation} className="text-white flex justify-center">
           <div className="mt-7 p-3 bg-blue-700 rounded-full border-double border-4 border-x-white text-center ">
             <span>Prenota per <em>{formattedDate}</em></span>
           </div>

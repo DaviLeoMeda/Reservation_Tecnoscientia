@@ -25,8 +25,8 @@ export default function Root({ auth }) {
 							<Route path="/" element={<Landing />} />
 							<Route path="/offices/*">
 								<Route index element={<OfficeSelection />} />
-								<Route path=":officeId" element={<OfficeReservation userId={auth.user.id}  />} />
-								<Route path=":officeId/:formattedDate" element={<DeskAvailability userId={auth.user.id}/>} />
+								<Route path=":officeId/dates" element={<OfficeReservation userId={auth.user.id}  />} />
+								<Route path=":officeId/dates/:formattedDate/desks" element={<DeskAvailability userId={auth.user.id}/>} />
 							</Route>
 							<Route path="/meetingroom" element={<MeetingRoom />} />
       						  
