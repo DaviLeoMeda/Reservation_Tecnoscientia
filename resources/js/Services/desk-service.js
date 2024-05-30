@@ -14,12 +14,9 @@ export async function getOffices() {
   return data;
 }
 
-export async function createReservation(userId, deskId, date, amOrPm) {
+export async function createReservation(deskId, date, amOrPm) {
   try {
     const response = await axios.post(`${API_ROOT}/reservations`, {
-        // TODO questo è sbagliato, dovrebbe trovarlo il backend nell'autenticazione
-        user_id: userId,
-
         desk_id: deskId,
         date: date,
         am_or_pm: amOrPm,

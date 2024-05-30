@@ -36,8 +36,6 @@ class OfficeReservationController extends Controller
             'date' => 'required|date',
             'desk_id' =>'exists:desks,id',
             'am_or_pm' => 'required|in:am,pm',
-            // TODO: questo è sbagliato, dovrebbe venire dall'autenticazione
-            'user_id' => 'required|exists:users,id'
         ]);
 
         // TODO: validare che la data sia nel futuro (o forse anche oggi compreso?)
@@ -56,12 +54,7 @@ class OfficeReservationController extends Controller
         } 
         
         $reservation = new OfficeReservation();
-        
-        // TODO questo è sbagliato, dovrebbe venire dall'autenticazione
-        $reservation->user_id = $validated['user_id']; 
-        // TODO dovrebbe essere come segue, ma Sanctum non è configurato
-        // $reservation->user_id = $request->user()->id;
-
+        $reservation->user_id = $request->user()->id;
         $reservation->desk_id = $validated['desk_id'];
         $reservation->reservation_day = $validated['date'];
         $reservation->morning_busy = $validated['am_or_pm'] === 'am';
