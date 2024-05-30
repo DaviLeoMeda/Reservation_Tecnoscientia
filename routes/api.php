@@ -22,7 +22,7 @@ use App\Http\Controllers\OfficeReservationController;
 
 
 //GET
-Route::get('/getOffice', [OfficeController::class, 'getOffice']);
+Route::get('/offices', [OfficeController::class, 'listOffices']);
 Route::get('/offices/{id}/desk-availability/{date}', [OfficeController::class, 'listDeskAvailability']);
 Route::get('/getDesk', [DeskController::class, 'getDesk']);
 
