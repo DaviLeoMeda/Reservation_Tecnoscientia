@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 export default function NavigationBar() {
     return <nav className="py-6 bg-white shadow flex justify-around">
         <div>
-            <Link className='px-10' to="/dashboard">
+            <Link className='px-10' to="/">
                 Dashboard
             </Link>
         </div>
