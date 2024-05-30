@@ -1,7 +1,6 @@
 import NavigationBar from '@/Components/NavigationBar';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
-import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Desk } from '../Pages/Desk';
 import MeetingRoom from '../Pages/MeetingRoom';
@@ -10,10 +9,6 @@ import OfficesTable from '../Pages/OfficesTable';
 
 
 export default function Dashboard({ auth }) {
-
-
-
-	
 	return (
 		<AuthenticatedLayout
 			user={auth.user}

@@ -22,6 +22,7 @@ use App\Http\Controllers\DeskController;
 
 //GET
 Route::get('/getOffice', [OfficeController::class, 'getOffice']);
+Route::get('/offices/{id}/desks', [OfficeController::class, 'listDesks']);
 Route::get('/getDesk', [DeskController::class, 'getDesk']);
 
 

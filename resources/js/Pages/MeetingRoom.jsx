@@ -1,11 +1,6 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { useEffect, useState } from 'react';
-import { Head } from '@inertiajs/react';
-import { Link, Route, Routes, useParams } from 'react-router-dom';
 
-import { PrimeReactProvider, PrimeReactContext } from 'primereact/api';
 import { Calendar } from 'primereact/calendar';
-import Desk from '../Pages/OfficeReservation';
         
         
 

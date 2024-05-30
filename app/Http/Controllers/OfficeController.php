@@ -26,4 +26,16 @@ class OfficeController extends Controller
             return response()->json(['error' => 'Errore durante il recupero degli uffici'], 500);
         }
     }
+
+    public function listDesks(Request $request, int $id)
+    {
+        try {
+            $desks = Office::find($id)->desks;
+
+            return response()->json($desks);
+        } catch (\Exception $e) {
+            // Gestisci l'eccezione qui
+            return response()->json(['error' => 'Errore durante il recupero delle scrivanie'], 500);
+        }
+    }
 };
