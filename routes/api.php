@@ -22,8 +22,7 @@ Route::get('/offices', [OfficeController::class, 'listOffices']);
 Route::get('/offices/{id}/desk-availability/{date}', [DeskController::class, 'listDeskAvailability']);
 
 Route::post('/reservations', [OfficeReservationController::class, 'store'])
-    // TODO: sistemare configurazione di Sanctum e scommentare la riga seguente
-    // ->middleware('auth')
+    ->middleware('auth:sanctum')
     ->name('reservation.store');
 
 //PUT

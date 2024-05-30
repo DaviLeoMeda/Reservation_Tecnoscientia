@@ -54,7 +54,7 @@ export function DeskSlotSelection({ userId }) {
 
         let newReservation = null;
         try {
-            newReservation = await createReservation(userId, deskId, formattedDate, amOrPm);
+            newReservation = await createReservation(deskId, formattedDate, amOrPm);
             if (!newReservation) {
                 toast.current.show({ severity: 'error', summary: 'Error', detail: 'Reservation could not be created' });
                 return;
