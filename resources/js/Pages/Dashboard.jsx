@@ -21,8 +21,7 @@ export default function Dashboard({ auth }) {
 				<div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
 					<div role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-1 lg:grid-cols-1">
 						<Routes>
-							<Route path="/" element={<Dashboard />} />
-							<Route path="/offices">
+							<Route path="/offices/*">
 								<Route index element={<OfficesTable />} />
 								<Route path=":officeId" element={<OfficeReservation userId={auth.user.id}  />} />
 								<Route path=":officeId/:formattedDate" element={<DeskAvailability userId={auth.user.id}/>} />
