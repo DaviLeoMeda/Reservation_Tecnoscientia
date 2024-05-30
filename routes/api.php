@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Inertia\Inertia;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\DeskController;
+use App\Http\Controllers\OfficeReservationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,9 @@ use App\Http\Controllers\DeskController;
 Route::get('/getOffice', [OfficeController::class, 'getOffice']);
 Route::get('/offices/{id}/desks', [OfficeController::class, 'listDesks']);
 Route::get('/getDesk', [DeskController::class, 'getDesk']);
+
+//POST
+Route::post('/postReservation', [OfficeReservationController::class, 'store'])->name('reservation.store');
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

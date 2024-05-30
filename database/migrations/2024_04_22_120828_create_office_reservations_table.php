@@ -13,10 +13,16 @@ return new class extends Migration
     {
         Schema::create('office_reservations', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('desk_id')->nullable();
             $table->dateTime('reservation_day');
             $table->boolean('morning_busy');
             $table->boolean('afternoon_busy');
             $table->timestamps();
+
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('desk_id')->references('id')->on('desks')->onDelete('cascade');
         });
     }
 
