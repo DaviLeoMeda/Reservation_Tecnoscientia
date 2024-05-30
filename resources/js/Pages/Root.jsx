@@ -5,7 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import { DeskAvailability } from './DeskAvailability';
 import MeetingRoom from './MeetingRoom';
 import OfficeReservation from './OfficeReservation';
-import OfficesTable from './OfficesTable';
+import OfficeSelection from './OfficeSelection';
 import { Landing } from './Landing';
 
 
@@ -24,7 +24,7 @@ export default function Root({ auth }) {
 						<Routes>
 							<Route path="/" element={<Landing />} />
 							<Route path="/offices/*">
-								<Route index element={<OfficesTable />} />
+								<Route index element={<OfficeSelection />} />
 								<Route path=":officeId" element={<OfficeReservation userId={auth.user.id}  />} />
 								<Route path=":officeId/:formattedDate" element={<DeskAvailability userId={auth.user.id}/>} />
 							</Route>
