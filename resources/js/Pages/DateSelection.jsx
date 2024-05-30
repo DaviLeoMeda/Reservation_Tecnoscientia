@@ -5,7 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 
 
 
-export default function OfficeReservation({ userId }) {
+export default function DateSelection({ userId }) {
 
   const [date, setDate] = useState(null);
   const [formattedDate, setFormattedDate] = useState('');
