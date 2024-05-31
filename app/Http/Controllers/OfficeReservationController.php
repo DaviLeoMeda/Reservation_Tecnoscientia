@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\OfficeReservation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -54,7 +55,7 @@ class OfficeReservationController extends Controller
         } 
         
         $reservation = new OfficeReservation();
-        $reservation->user_id = $request->user()->id;
+        $reservation->user_id = Auth::user()->id;
         $reservation->desk_id = $validated['desk_id'];
         $reservation->reservation_day = $validated['date'];
         $reservation->morning_busy = $validated['am_or_pm'] === 'am';
@@ -94,8 +95,14 @@ class OfficeReservationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(OfficeReservation $officeReservation)
+    public function destroy(OfficeReservation $reservation)
     {
-        //
+        Log::info("Requesting to delete reservation $reservation->id by user " . Auth::user()->id);
+
+        if (Auth::user()->id !== $reservation->user_id) {
+            abort(403, 'Unauthorized');
+        }
+
+        $reservation->delete();
     }
 }

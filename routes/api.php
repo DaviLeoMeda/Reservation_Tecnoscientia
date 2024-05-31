@@ -21,9 +21,13 @@ use App\Http\Controllers\OfficeReservationController;
 Route::get('/offices', [OfficeController::class, 'listOffices']);
 Route::get('/offices/{id}/desk-availability/{date}', [DeskController::class, 'listDeskAvailability']);
 
-Route::post('/reservations', [OfficeReservationController::class, 'store'])
+Route::prefix('reservations')
     ->middleware('auth:sanctum')
-    ->name('reservation.store');
+    ->controller(OfficeReservationController::class)
+    ->group(function () {
+        Route::post('/', 'store');
+        Route::delete('/{reservation}', 'destroy');
+    });
 
 //PUT
 Route::put('/updateReservation', [OfficeReservationController::class, 'update']);
