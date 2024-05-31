@@ -13,9 +13,13 @@ class OfficeReservationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function list()
     {
-        //
+        return OfficeReservation::where('user_id', Auth::user()->id)
+            ->orderBy('reservation_day')
+            ->orderBy('morning_busy', 'DESC')
+            ->with('desk', 'desk.office')
+            ->get();
     }
 
     /**

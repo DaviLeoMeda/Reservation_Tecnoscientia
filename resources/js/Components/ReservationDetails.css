@@ -1,0 +1,10 @@
+    .field-label {
+        width: 10em;
+        display: inline-block;
+        font-weight: bolder;
+        color: darkgreen;
+    }
+    
+    .field-value {
+
+    }

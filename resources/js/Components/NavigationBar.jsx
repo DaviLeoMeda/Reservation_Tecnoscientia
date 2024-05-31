@@ -11,6 +11,9 @@ export default function NavigationBar() {
             <Link className='px-10' to="/offices">
                 Desks per day
             </Link>
+            <Link className='px-10' to="/my-reservations">
+                My Reservations
+            </Link>
         </div>
     </nav>
 }

@@ -1,5 +1,3 @@
-import { DeskReservation } from "@/Components/DeskReservation";
-
 export function Landing({ userId }) {
     return (
         <section>

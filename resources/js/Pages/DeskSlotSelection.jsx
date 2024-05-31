@@ -1,12 +1,13 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { DeskReservation } from "@/Components/DeskReservation";
-import { createReservation, deleteReservation, getDeskAvailability } from "@/Services/desk-service";
+import { getDeskAvailability } from "@/Services/desk-service";
 
 import { ConfirmPopup } from 'primereact/confirmpopup';
 import { confirmPopup } from 'primereact/confirmpopup';
 import { Toast } from 'primereact/toast';
 import { useRef } from "react";
+import { createReservation, deleteReservation } from "@/Services/reservation-service";
 
 
 export function DeskSlotSelection({ userId }) {

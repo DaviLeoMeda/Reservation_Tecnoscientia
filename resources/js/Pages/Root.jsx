@@ -6,6 +6,7 @@ import DateSelection from './DateSelection';
 import { DeskSlotSelection } from './DeskSlotSelection';
 import { Landing } from './Landing';
 import OfficeSelection from './OfficeSelection';
+import { MyReservations } from './MyReservations';
 
 
 export default function Root({ auth }) {
@@ -27,6 +28,7 @@ export default function Root({ auth }) {
 								<Route path=":officeId/dates" element={<DateSelection userId={auth.user.id}  />} />
 								<Route path=":officeId/dates/:formattedDate/desks" element={<DeskSlotSelection userId={auth.user.id}/>} />
 							</Route>
+							<Route path="/my-reservations" element={<MyReservations />} />
 						</Routes>
 					</div>
 				</div>

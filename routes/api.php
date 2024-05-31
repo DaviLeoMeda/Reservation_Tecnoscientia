@@ -25,6 +25,7 @@ Route::prefix('reservations')
     ->middleware('auth:sanctum')
     ->controller(OfficeReservationController::class)
     ->group(function () {
+        Route::get('/', 'list');
         Route::post('/', 'store');
         Route::delete('/{reservation}', 'destroy');
     });
