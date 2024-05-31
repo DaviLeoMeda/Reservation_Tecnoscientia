@@ -28,11 +28,11 @@ export default function DateSelection({ userId }) {
   tomorrow.setDate(tomorrow.getDate() + 1);
 
   return (
-    <div className="flex justify-center">
+    <div className="m-auto">
 
       <div>
-        <div className="bg-blue-200 p-3 rounded-xl">
-          <h3 className="mb-5">Seleziona una data:</h3>
+        <div className="bg-blue-200 p-3 rounded-xl flex flex-col items-center">
+          <h3 className="mb-5">Select a date</h3>
           <Calendar
             value={date}
             onChange={handleDateChange}
@@ -45,7 +45,7 @@ export default function DateSelection({ userId }) {
 
         {formattedDate && <Link to={`/offices/${numberOffice}/dates/${formattedDate}/desks`} className="text-white flex justify-center">
           <div className="mt-7 p-3 bg-blue-700 rounded-full border-double border-4 border-x-white text-center ">
-            <span>Prenota per <em>{formattedDate}</em></span>
+            <span>Check desk availability on <em>{formattedDate}</em></span>
           </div>
         </Link>
         }
