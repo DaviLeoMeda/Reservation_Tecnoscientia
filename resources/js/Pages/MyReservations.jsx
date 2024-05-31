@@ -16,7 +16,7 @@ export function MyReservations({ }) {
 
     return (<>
         <header className="bg-white shadow p-4 text-center">
-            <h1>My reservations</h1>
+            <h1>My Reservations</h1>
         </header>
         <section>
             <ul role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-1 lg:grid-cols-2">

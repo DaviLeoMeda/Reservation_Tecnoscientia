@@ -1,8 +1,7 @@
     .field-label {
-        width: 10em;
+        width: 2em;
         display: inline-block;
-        font-weight: bolder;
-        color: darkgreen;
+        color: green;
     }
     
     .field-value {
