@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\DeskController;
 use App\Http\Controllers\OfficeReservationController;
+use App\Models\Office;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +18,10 @@ use App\Http\Controllers\OfficeReservationController;
 |
 */
 
+Route::resource('offices', OfficeController::class)->only([
+    'index', 'show'
+]);
 
-Route::get('/offices', [OfficeController::class, 'listOffices']);
 Route::get('/offices/{id}/desk-availability/{date}', [DeskController::class, 'listDeskAvailability']);
 
 Route::prefix('reservations')

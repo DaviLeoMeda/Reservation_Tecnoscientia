@@ -1,10 +1,22 @@
+import { getOfficeName } from "@/Services/office-service";
 import { BreadCrumb } from 'primereact/breadcrumb';
+import { useEffect } from 'react';
+import { useState } from 'react';
 import { FaHome } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 
 export function SelectionBreadcrumb({ officeId, date }) {
-    const officeName = '???';
+    const [officeName, setOfficeName] = useState('???');
+
+    useEffect(() => {
+        const resolveOffice = async () => {
+            const n = await getOfficeName(officeId);
+            setOfficeName(n);
+        }
+
+        resolveOffice();
+    }, [officeId]);
 
     const items = [];
     if (officeId) {

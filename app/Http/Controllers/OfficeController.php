@@ -4,12 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Office;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class OfficeController extends Controller
 {
-    public function listOffices(Request $request)
+    public function index(Request $request)
     {
         try {
             $offices = Office::all();
@@ -20,5 +18,10 @@ class OfficeController extends Controller
             return response()->json(['error' => 'Errore durante il recupero degli uffici'], 500);
         }
     }
+
+    public function show(Office $office) {
+        return $office;
+    }
+
 
 };

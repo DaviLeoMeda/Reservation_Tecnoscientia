@@ -1,6 +1,5 @@
 import axios from "axios";
-
-const API_ROOT = '/api';
+import { API_ROOT } from "./api-config";
 
 export async function createReservation(deskId, date, amOrPm) {
     try {

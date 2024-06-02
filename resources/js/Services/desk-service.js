@@ -1,5 +1,4 @@
-
-const API_ROOT = '/api';
+import { API_ROOT } from "./api-config";
 
 export async function getDeskAvailability(officeId, date) {
   const response = await fetch(`${API_ROOT}/offices/${officeId}/desk-availability/${date}`);
@@ -7,8 +6,4 @@ export async function getDeskAvailability(officeId, date) {
   return data;
 }
 
-export async function getOffices() {
-  const response = await fetch(`${API_ROOT}/offices`);
-  const data = await response.json();
-  return data;
-}
+

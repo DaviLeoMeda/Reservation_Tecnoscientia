@@ -6,7 +6,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import SelectInput from '@/Components/SelectInput';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { getOffices } from '@/Services/desk-service';
+import { getOffices } from "@/Services/office-service";
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({

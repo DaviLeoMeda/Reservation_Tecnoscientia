@@ -1,5 +1,5 @@
 import { SelectionBreadcrumb } from '@/Components/SelectionBreadcrumb';
-import { getOffices } from '@/Services/desk-service';
+import { getOffices } from "@/Services/office-service";
 import { useEffect, useState } from 'react';
 import { FaBuilding } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
