@@ -1,3 +1,4 @@
+import { SelectionBreadcrumb } from '@/Components/SelectionBreadcrumb';
 import { format } from 'date-fns';
 import { Calendar } from 'primereact/calendar';
 import { useEffect, useState } from 'react';
@@ -28,29 +29,31 @@ export default function DateSelection({ userId }) {
   tomorrow.setDate(tomorrow.getDate() + 1);
 
   return (
-    <div className="m-auto">
+    <>
+      <div className='m-auto'>
+        <nav>
+          <SelectionBreadcrumb officeId={numberOffice} />
+        </nav>
+      </div>
 
-      <div>
-        <div className="bg-blue-200 p-3 rounded-xl flex flex-col items-center">
-          <h3 className="mb-5">Select a date</h3>
+      <section className="flex items-center justify-evenly">
+        <div className="m-auto bg-blue-200 p-3 rounded-xl">
           <Calendar
             value={date}
             onChange={handleDateChange}
             inline={true}
             minDate={tomorrow}
-            showWeek
-            style={{ width: '100%', fontSize: '16px' }}
+            style={{ fontSize: '16px' }}
           />
         </div>
+        <div className="w-130 p-3 bg-blue-700 rounded-full border-x-white text-center text-white">
+          {formattedDate ? (<Link to={`/offices/${numberOffice}/dates/${formattedDate}/desks`}>
+            Check desk availability on <em>{formattedDate}</em>
+          </Link>) : "Select a date"}
+        </div>
+      </section>
 
-        {formattedDate && <Link to={`/offices/${numberOffice}/dates/${formattedDate}/desks`} className="text-white flex justify-center">
-          <div className="mt-7 p-3 bg-blue-700 rounded-full border-double border-4 border-x-white text-center ">
-            <span>Check desk availability on <em>{formattedDate}</em></span>
-          </div>
-        </Link>
-        }
-      </div>
+    </>
 
-    </div>
   );
 }

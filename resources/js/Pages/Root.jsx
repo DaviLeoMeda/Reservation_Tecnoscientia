@@ -18,19 +18,17 @@ export default function Root({ auth }) {
 			<NavigationBar />
 			<Head title="Root" />
 
-			<div className="py-12">
+			<div className="py-6">
 				<div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-					<div role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-1 lg:grid-cols-1">
-						<Routes>
-							<Route path="/" element={<Landing />} />
-							<Route path="/offices/*">
-								<Route index element={<OfficeSelection />} />
-								<Route path=":officeId/dates" element={<DateSelection userId={auth.user.id}  />} />
-								<Route path=":officeId/dates/:formattedDate/desks" element={<DeskSlotSelection userId={auth.user.id}/>} />
-							</Route>
-							<Route path="/my-reservations" element={<MyReservations />} />
-						</Routes>
-					</div>
+					<Routes>
+						<Route path="/" element={<Landing />} />
+						<Route path="/offices/*">
+							<Route index element={<OfficeSelection />} />
+							<Route path=":officeId/dates" element={<DateSelection userId={auth.user.id} />} />
+							<Route path=":officeId/dates/:formattedDate/desks" element={<DeskSlotSelection userId={auth.user.id} />} />
+						</Route>
+						<Route path="/my-reservations" element={<MyReservations />} />
+					</Routes>
 				</div>
 			</div>
 		</AuthenticatedLayout>

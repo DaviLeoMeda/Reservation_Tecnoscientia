@@ -8,6 +8,7 @@ import { confirmPopup } from 'primereact/confirmpopup';
 import { Toast } from 'primereact/toast';
 import { useRef } from "react";
 import { createReservation, deleteReservation } from "@/Services/reservation-service";
+import { SelectionBreadcrumb } from "@/Components/SelectionBreadcrumb";
 
 
 export function DeskSlotSelection({ userId }) {
@@ -120,9 +121,11 @@ export function DeskSlotSelection({ userId }) {
 
     return (
         <>
-            <header className="bg-white shadow p-4 text-center">
-                <h1>Desk Availability</h1>
-            </header>
+            <div className='m-auto'>
+                <nav>
+                    <SelectionBreadcrumb officeId={officeId} date={formattedDate} />
+                </nav>
+            </div>
             <Toast ref={toast} />
             <ConfirmPopup />
             <section>
