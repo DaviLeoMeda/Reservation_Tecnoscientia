@@ -30,3 +30,16 @@ export async function createReservation(deskId, date, amOrPm) {
     throw error;
   }
 };
+
+export async function cancelReservation(reservationId) {
+  try {
+    const response = await axios.delete(`${API_ROOT}/unreserved/${reservationId}`);
+
+    console.log('Response from post', response);
+    return response;
+
+  } catch (error) {
+    console.error('Errore durante la creazione della prenotazione:', error);
+    throw error;
+  }
+};

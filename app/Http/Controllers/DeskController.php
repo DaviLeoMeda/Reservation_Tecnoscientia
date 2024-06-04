@@ -12,7 +12,7 @@ class DeskController extends Controller
     private function loadDesksAndTheirReservations($officeId, $date)
     {
         return DB::table('desks')
-            ->select('desks.id', 'desks.name', 'reservations.morning_busy', 'reservations.afternoon_busy', 'reservations.user_id')
+            ->select('desks.id', 'desks.name', 'reservations.morning_busy', 'reservations.afternoon_busy', 'reservations.user_id', 'reservations.id as reservation_id')
             ->leftJoin('office_reservations as reservations', function ($join) use ($date) {
                 $join->on('desks.id', '=', 'reservations.desk_id');
                 $join->on('reservations.reservation_day', '=', DB::raw("'$date'"));
@@ -28,16 +28,23 @@ class DeskController extends Controller
                 $deskRecord = [];
                 $deskRecord['id'] = $desk->id;
                 $deskRecord['name'] = $desk->name;
-                $deskRecord['am'] = 'free';
-                $deskRecord['pm'] = 'free';
+                $deskRecord['am'] = ['status' => 'free', 'reservation_id' => null];
+                $deskRecord['pm'] = ['status' => 'free', 'reservation_id' => null];
+
 
                 $deskMap[$desk->id] = $deskRecord;
             }
 
             if ($desk->morning_busy) {
-                $deskMap[$desk->id]['am'] = $desk->user_id;
+                $deskMap[$desk->id]['am'] = [
+                    'status' => $desk->user_id,
+                    'reservation_id' => $desk->reservation_id
+                ];
             } else if ($desk->afternoon_busy) {
-                $deskMap[$desk->id]['pm'] = $desk->user_id;
+                $deskMap[$desk->id]['pm'] = [
+                    'status' => $desk->user_id,
+                    'reservation_id' => $desk->reservation_id
+                ];
             }
         }
 

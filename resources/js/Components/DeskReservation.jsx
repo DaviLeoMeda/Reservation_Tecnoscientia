@@ -7,7 +7,7 @@ export function DeskReservation({ currentUser, deskState, amOrPm, onReserve, onC
         clazz = 'bg-lime-600 text-lime-200 border-lime-200';
         message = 'Reserve for ' + amOrPm;
         handler = onReserve;
-    } else if (deskState == currentUser) {
+    } else if (deskState === currentUser) {
         clazz = 'bg-yellow-400 text-orange-600 border-orange-600';
         message = 'Cancel for ' + amOrPm;
         handler = onCancel;

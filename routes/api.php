@@ -25,6 +25,10 @@ Route::post('/reservations', [OfficeReservationController::class, 'store'])
     ->middleware('auth:sanctum')
     ->name('reservation.store');
 
+Route::delete('/unreserved/{reservation}', [OfficeReservationController::class, 'destroy'])
+    ->middleware('auth:sanctum')
+    ->name('reservation.destroy');
+
 //PUT
 Route::put('/updateReservation', [OfficeReservationController::class, 'update']);
 

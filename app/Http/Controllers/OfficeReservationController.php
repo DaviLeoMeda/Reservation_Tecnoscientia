@@ -94,8 +94,23 @@ class OfficeReservationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(OfficeReservation $officeReservation)
+    public function destroy(Request $request, $reservationId)
     {
-        //
+        Log::info("Requesting to cancel a reservation");
+
+
+        $reservation = OfficeReservation::find($reservationId);
+
+        if (!$reservation) {
+            abort(404, 'Reservation not found');
+        }
+
+        if ($request->user()->id !== $reservation->user_id) {
+            abort(403, 'Operation forbidden');
+        }
+       
+        $reservation->delete();
+
+        Log::info("Reservation cancelled with id $reservationId");
     }
 }
